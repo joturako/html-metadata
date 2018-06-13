@@ -12,7 +12,7 @@ Import modules
  */
 var BBPromise = require('bluebird');
 var cheerio = require('cheerio');
-var preq = require('preq'); // Promisified Request library
+var axios = require('axios'); // Promisified Request library
 var fs = BBPromise.promisifyAll(require('fs'));
 
 var index = require('./lib/index.js');
@@ -26,10 +26,9 @@ var index = require('./lib/index.js');
  * @param  {Function} [callback] Optional callback
  * @return {Object}              BBPromise for metadata
  */
-exports = module.exports = function(urlOrOpts, callback) {
-	return preq.get(urlOrOpts
-	).then(function(response) {
-		return index.parseAll(cheerio.load(response.body));
+exports = module.exports = function (urlOrOpts, callback) {
+	return preq.get(urlOrOpts).then(function (response) {
+		return index.parseAll(cheerio.load(response.data));
 	}).nodeify(callback);
 };
 
@@ -42,7 +41,7 @@ exports = module.exports = function(urlOrOpts, callback) {
  * @param  {Function} [callback] Optional callback
  * @return {Object}              BBPromise for metadata
  */
-exports.loadFromFile = function(path, opts, callback) {
+exports.loadFromFile = function (path, opts, callback) {
 	var defaultEncoding = 'utf-8';
 
 	opts = opts || defaultEncoding;
@@ -64,7 +63,7 @@ exports.loadFromFile = function(path, opts, callback) {
  * @param  {Function} [callback] Optional callback
  * @return {Object}              BBPromise for metadata
  */
-exports.loadFromString = function(html, callback) {
+exports.loadFromString = function (html, callback) {
 	return index.parseAll(cheerio.load(html)).nodeify(callback);
 };
 
@@ -76,7 +75,7 @@ exports.loadFromString = function(html, callback) {
  * @param  {Function} [callback] optional callback function
  * @return {Object}              BBPromise for metadata
  */
-exports.parseAll = function(chtml, callback){
+exports.parseAll = function (chtml, callback) {
 	return index.parseAll(chtml).nodeify(callback);
 };
 
@@ -87,7 +86,7 @@ exports.parseAll = function(chtml, callback){
  * @param  {Function} [callback] optional callback function
  * @return {Object}              BBPromise for metadata
  */
-exports.parseBEPress = function(chtml, callback){
+exports.parseBEPress = function (chtml, callback) {
 	return index.parseBEPress(chtml).nodeify(callback);
 };
 
@@ -98,7 +97,7 @@ exports.parseBEPress = function(chtml, callback){
  * @param  {Function} [callback] optional callback function
  * @return {Object}              BBPromise for metadata
  */
-exports.parseCOinS = function(chtml, callback){
+exports.parseCOinS = function (chtml, callback) {
 	return index.parseCOinS(chtml).nodeify(callback);
 };
 
@@ -109,7 +108,7 @@ exports.parseCOinS = function(chtml, callback){
  * @param  {Function} [callback] Optional callback function
  * @return {Object}              BBPromise for metadata
  */
-exports.parseCOinSTitle = function(title, callback){
+exports.parseCOinSTitle = function (title, callback) {
 	return index.parseCOinSTitle(title).nodeify(callback);
 };
 
@@ -120,7 +119,7 @@ exports.parseCOinSTitle = function(title, callback){
  * @param  {Function} [callback] optional callback function
  * @return {Object}              BBPromise for metadata
  */
-exports.parseDublinCore = function(chtml, callback){
+exports.parseDublinCore = function (chtml, callback) {
 	return index.parseDublinCore(chtml).nodeify(callback);
 };
 
@@ -131,7 +130,7 @@ exports.parseDublinCore = function(chtml, callback){
  * @param  {Function} [callback] optional callback function
  * @return {Object}              BBPromise for metadata
  */
-exports.parseEprints = function(chtml, callback){
+exports.parseEprints = function (chtml, callback) {
 	return index.parseEprints(chtml).nodeify(callback);
 };
 
@@ -142,7 +141,7 @@ exports.parseEprints = function(chtml, callback){
  * @param  {Function} [callback] optional callback function
  * @return {Object}              BBPromise for metadata
  */
-exports.parseGeneral = function(chtml, callback){
+exports.parseGeneral = function (chtml, callback) {
 	return index.parseGeneral(chtml).nodeify(callback);
 };
 
@@ -153,7 +152,7 @@ exports.parseGeneral = function(chtml, callback){
  * @param  {Function} [callback] optional callback function
  * @return {Object}              BBPromise for metadata
  */
-exports.parseHighwirePress = function(chtml, callback){
+exports.parseHighwirePress = function (chtml, callback) {
 	return index.parseHighwirePress(chtml).nodeify(callback);
 };
 
@@ -164,7 +163,7 @@ exports.parseHighwirePress = function(chtml, callback){
  * @param  {Function} [callback] optional callback function
  * @return {Object}              BBPromise for JSON-LD
  */
-exports.parseJsonLd = function(chtml, callback){
+exports.parseJsonLd = function (chtml, callback) {
 	return index.parseJsonLd(chtml).nodeify(callback);
 };
 
@@ -175,7 +174,7 @@ exports.parseJsonLd = function(chtml, callback){
  * @param  {Function} [callback] optional callback function
  * @return {Object}              BBPromise for metadata
  */
-exports.parseOpenGraph = function(chtml, callback){
+exports.parseOpenGraph = function (chtml, callback) {
 	return index.parseOpenGraph(chtml).nodeify(callback);
 };
 
@@ -186,7 +185,7 @@ exports.parseOpenGraph = function(chtml, callback){
  * @param  {Function} [callback] optional callback function
  * @return {Object}              BBPromise for metadata
  */
-exports.parseSchemaOrgMicrodata = function(chtml, callback){
+exports.parseSchemaOrgMicrodata = function (chtml, callback) {
 	return index.parseSchemaOrgMicrodata(chtml).nodeify(callback);
 };
 
@@ -197,7 +196,7 @@ exports.parseSchemaOrgMicrodata = function(chtml, callback){
  * @param  {Function} [callback] optional callback function
  * @return {Object}              BBPromise for metadata
  */
-exports.parseTwitter = function(chtml, callback){
+exports.parseTwitter = function (chtml, callback) {
 	return index.parseTwitter(chtml).nodeify(callback);
 };
 
@@ -208,7 +207,7 @@ exports.parseTwitter = function(chtml, callback){
  * @param  {Function} [callback] optional callback function
  * @return {Object}              BBPromise for metadata
  */
-exports.parsePrism = function(chtml, callback){
+exports.parsePrism = function (chtml, callback) {
 	return index.parsePrism(chtml).nodeify(callback);
 };
 

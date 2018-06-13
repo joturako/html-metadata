@@ -4,10 +4,10 @@
   "description": "Scrapes metadata of several different standards",
   "main": "index.js",
   "dependencies": {
+    "axios": "^0.18.0",
     "bluebird": "3.5.1",
     "cheerio": "1.0.0-rc.2",
-    "microdata-node": "0.2.1",
-    "preq": "0.5.4"
+    "microdata-node": "0.2.1"
   },
   "devDependencies": {
     "istanbul": "0.4.5",
