@@ -27,7 +27,7 @@ var index = require('./lib/index.js');
  * @return {Object}              BBPromise for metadata
  */
 exports = module.exports = function (urlOrOpts, callback) {
-	return preq.get(urlOrOpts).then(function (response) {
+	return axios.get(urlOrOpts).then(function (response) {
 		return index.parseAll(cheerio.load(response.data));
 	}).nodeify(callback);
 };
