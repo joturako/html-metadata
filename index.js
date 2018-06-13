@@ -10,6 +10,7 @@
 /*
 Import modules
  */
+require('nodeify').extend();
 var BBPromise = require('bluebird');
 var cheerio = require('cheerio');
 var axios = require('axios'); // Promisified Request library
